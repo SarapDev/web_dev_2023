@@ -1,0 +1,29 @@
+[Http]
+Listen = ":8083"
+
+[Tracer]
+Disabled = true
+
+[Logger]
+Severity = "debug"
+Encoding = "console"
+
+[MySQL]
+DSN = "root:root@tcp(localhost:3306)/blog"
+ParseTime = true
+MaxConnectionAttempts = 2
+MaxOpenConnections = 1
+
+[RabbitMQConnection]
+URL = "amqp://guest:guest@localhost:5672//"
+ReconnectInterval = "5s"
+
+[RabbitMQConsumer]
+Concurrency = 1
+QOSPrefetch = 1
+Bindings = [
+    { RoutingKey = "", Declare = true }
+]
+QueueOptions = { Name = "external", Durable = true, Declare = true }
+ExchangeOptions = { Name = "input", Kind = "fanout", Durable = true, Declare = true }
+RabbitConsumerOptions = { Name = "example_external_consumer" }

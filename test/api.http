@@ -1,0 +1,50 @@
+### Информация о сборке api
+GET {{url_api}}/release
+
+### Health статус api
+GET {{url_api}}/_private_/health
+
+### Метрики api
+GET {{url_api}}/_private_/metrics
+
+### Root
+GET {{url_api}}/
+
+### создание поста
+POST {{url_api}}/post
+Content-Type: application/json
+
+{
+  "title": "{{ $random.alphabetic (16) }}",
+  "content": "{{ $random.alphabetic (200) }}"
+}
+
+> {%
+    client.test("проверка статуса ответа", function () {
+        client.assert(response.status === 201, "Статус ответа не 201")
+    });
+    client.test("проверка наличия id в ответе", function () {
+        client.assert(response.body["data"]["id"] !== undefined, "id не найден в ответе")
+        client.global.set("post_id", response.body["data"]["id"])
+    });
+%}
+
+
+### получение поста
+GET {{url_api}}/post/{{post_id}}
+
+
+### получение списка постов
+GET {{url_api}}/post
+
+### получение комментов к посту
+GET {{url_api}}/post/{{post_id}}/comments
+
+### создание коммента к посту
+POST {{url_api}}/comment
+
+{
+  "post_id": {{post_id}},
+  "author": "{{ $random.email }}",
+  "content": "{{ $random.alphabetic (50) }}"
+}

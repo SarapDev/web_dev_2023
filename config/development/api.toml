@@ -1,0 +1,23 @@
+[Http]
+Listen = ":8081"
+
+[Tracer]
+
+[Tracer.Sampler]
+Type = "probabilistic"
+Param = 1.0
+
+[Tracer.Reporter]
+LogSpans = true
+LocalAgentHostPort = "ok.sandbox.alahd.kz.dev.bash.kz:6831"
+
+[Logger]
+Severity = "debug"
+Encoding = "console"
+
+[MySQL]
+DSN = "root:root@tcp(localhost:3306)/blog"
+ParseTime = true
+MaxConnectionAttempts = 2
+MaxOpenConnections = 1
+

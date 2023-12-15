@@ -1,0 +1,11 @@
+[Http]
+Listen = ":8080"
+
+[Tracer]
+Disabled = true
+
+[Logger]
+Severity = "debug"
+Encoding = "console"
+
+
